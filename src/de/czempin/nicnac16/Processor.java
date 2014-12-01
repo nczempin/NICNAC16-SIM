@@ -9,4 +9,8 @@ public class Processor {
 		return mem[address];
 	}
 
+	public void writeMemory(int address, int value) {
+		mem[address] = value;
+	}
+
 }

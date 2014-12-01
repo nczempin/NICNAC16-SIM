@@ -12,15 +12,17 @@ public class Main {
 		int word = 0;
 		int opcode;
 		Instruction instruction = null;
+		p.writeMemory(0, 0b0110 * 4096+0xF00); // add-instruction
+		p.writeMemory(0xf00, 0xdead); 
 		while (!done) {
 			// fetch instruction
 			word = p.readMemory(p.PC);
 			// decode instruction
-			opcode = word / 4096; // shift right by 12 (4096 = 2´12). 
+			opcode = word / 4096; // shift right by 12 (4096 = 2´12).
 			instruction = Decoder.decode(opcode);
 			// execute instruction
 			instruction.execute(word, p);
-			
+
 			done = true;
 		}
 
