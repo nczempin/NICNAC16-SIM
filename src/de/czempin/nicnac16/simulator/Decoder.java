@@ -1,6 +1,6 @@
 package de.czempin.nicnac16.simulator;
 
-import de.czempin.nicnac16.assembler.Instruction;
+import de.czempin.nicnac16.Instruction;
 
 public class Decoder {
 

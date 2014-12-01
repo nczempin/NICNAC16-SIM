@@ -1,4 +1,6 @@
-package de.czempin.nicnac16.assembler;
+package de.czempin.nicnac16;
+
+import de.czempin.nicnac16.assembler.Processor;
 
 public enum Instruction {
 	ADD(){
