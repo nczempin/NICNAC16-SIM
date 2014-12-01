@@ -18,6 +18,7 @@ public class Main {
 			opcode = word / 4096; // shift right by 12 (4096 = 2´12)
 			instruction = Decoder.decode(opcode);
 			// execute instruction
+			instruction.execute();
 			done = true;
 		}
 				
