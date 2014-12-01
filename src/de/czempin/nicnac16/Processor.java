@@ -1,4 +1,4 @@
-package de.czempin.nicnac16.assembler;
+package de.czempin.nicnac16;
 
 public class Processor {
 	int mem[] = new int[65636];

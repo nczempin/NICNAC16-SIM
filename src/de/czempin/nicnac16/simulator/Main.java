@@ -1,7 +1,7 @@
 package de.czempin.nicnac16.simulator;
 
 import de.czempin.nicnac16.Instruction;
-import de.czempin.nicnac16.assembler.Processor;
+import de.czempin.nicnac16.Processor;
 
 public class Main {
 
