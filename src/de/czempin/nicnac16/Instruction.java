@@ -10,7 +10,7 @@ public enum Instruction {
 			int oldAC = p.AC;
 			p.AC = (p.AC + value) % 0xffff; // TODO: condition bits
 			int newAC = p.AC;
-			String formatted = String.format("ADD %h: AC (%h)<- AC(%h) + mem[%h] (%h)", address, newAC, oldAC, address, value);
+			String formatted = String.format("ADD %03x: AC (%04x)<- AC(%04x) + mem[%04x] (%04x)", address, newAC, oldAC, address, value);
 			System.out.println(formatted);
 		}
 	},
@@ -22,8 +22,10 @@ public enum Instruction {
 	},
 	JMP() {
 		public void execute(int word, Processor p) {
-			super.execute(word, p);
-			System.out.println("JMP");
+			super.execute(word, p); // TODO: Do we want to keep this? right now all it does is PC++
+			int address = word & 0x00000FFF; // extract address
+			p.PC = address;
+			System.out.println(String.format("JMP %04x",address));
 		}
 	},
 	BL() {
@@ -46,7 +48,7 @@ public enum Instruction {
 
 			p.AC = value; // TODO: condition bits?
 			int newAC = p.AC;
-			String formatted = String.format("LDA %h: AC (%h)<- mem[%h] (%h)", address, newAC, address, value);
+			String formatted = String.format("LDA %03x: AC (%04x)<- mem[%04x] (%04x)", address, newAC, address, value);
 			System.out.println(formatted);
 		}
 	},
@@ -57,7 +59,7 @@ public enum Instruction {
 			int value = p.AC;
 
 			p.writeMemory(address, value);
-			String formatted = String.format("STA %h: mem[%h]<- AC (%h)", address, address, value);
+			String formatted = String.format("STA %03x: mem[%04x]<- AC (%04x)", address, address, value);
 			System.out.println(formatted);
 		}
 	},
