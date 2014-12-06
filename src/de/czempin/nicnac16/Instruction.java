@@ -7,7 +7,10 @@ public enum Instruction {
 			int address = word & 0x00000FFF; // extract address
 			int value = p.readMemory(address);
 
-			System.out.println(String.format("address: %h. value: %h", address, value));
+			int newAC = 0; //TODO
+			int oldAC = 0; //TODO
+			String formatted = String.format("ADD %h: AC (%h)<- AC(%h) + mem[%h] (%h)", address, newAC, oldAC, address, value);
+			System.out.println(formatted);
 			p.AC += value; // TODO: condition bits
 		}
 	},
