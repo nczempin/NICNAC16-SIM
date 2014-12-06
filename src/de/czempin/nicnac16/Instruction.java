@@ -8,10 +8,10 @@ public enum Instruction {
 			int value = p.readMemory(address);
 
 			int oldAC = p.AC;
-			int newAC = p.AC + value;
+			p.AC += value; // TODO: condition bits
+			int newAC = p.AC;
 			String formatted = String.format("ADD %h: AC (%h)<- AC(%h) + mem[%h] (%h)", address, newAC, oldAC, address, value);
 			System.out.println(formatted);
-			p.AC += value; // TODO: condition bits
 		}
 	},
 	NOP() {
