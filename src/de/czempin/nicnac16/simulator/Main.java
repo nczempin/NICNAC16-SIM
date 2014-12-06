@@ -13,7 +13,7 @@ public class Main {
 		int opcode;
 		Instruction instruction = null;
 		p.writeMemory(0, 0b0110 * 4096 + 0xF00); // add-instruction
-		p.writeMemory(0xf0, 0x7fff);
+		p.writeMemory(0xf, 0x7fff);
 		p.writeMemory(0xf00, 0xdead);
 		
 		while (!done) {
