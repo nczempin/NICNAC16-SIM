@@ -8,7 +8,7 @@ public enum Instruction {
 			int value = p.readMemory(address);
 
 			int oldAC = p.AC;
-			p.AC += value; // TODO: condition bits
+			p.AC = (p.AC + value) % 0xffff; // TODO: condition bits
 			int newAC = p.AC;
 			String formatted = String.format("ADD %h: AC (%h)<- AC(%h) + mem[%h] (%h)", address, newAC, oldAC, address, value);
 			System.out.println(formatted);
@@ -41,6 +41,13 @@ public enum Instruction {
 	LDA() {
 		public void execute(int word, Processor p) {
 			super.execute(word, p);
+			int address = word & 0x00000FFF; // extract address
+			int value = p.readMemory(address);
+
+			p.AC = value; // TODO: condition bits?
+			int newAC = p.AC;
+			String formatted = String.format("LDA %h: AC (%h)<- mem[%h] (%h)", address, newAC, address, value);
+			System.out.println(formatted);
 			System.out.println("LDA");
 		}
 	},
