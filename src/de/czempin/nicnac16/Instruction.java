@@ -19,7 +19,7 @@ public enum Instruction {
 			super.execute(word, p);
 			System.out.println("NOP");
 		}
-	};
+	}, JMP, BL, RET, LDA, STA, BAN;
 
 	public void execute(int instruction, Processor p) {
 		p.PC++;
