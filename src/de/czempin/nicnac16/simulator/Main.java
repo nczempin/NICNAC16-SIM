@@ -14,6 +14,7 @@ public class Main {
 		Instruction instruction = null;
 		p.writeMemory(0, 0b0100 * 4096 + 0xF01); // lda-instruction
 		p.writeMemory(1, 0b0110 * 4096 + 0xF00); // add-instruction
+		p.writeMemory(2, 0b0101 * 4096 + 0xF02); // sta-instruction
 		p.writeMemory(0xf, 0x7fff); // Halt and catch fire
 		p.writeMemory(0xf00, 0xdead);
 		p.writeMemory(0xf01, 0xbeef);

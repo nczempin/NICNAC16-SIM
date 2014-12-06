@@ -53,7 +53,12 @@ public enum Instruction {
 	STA() {
 		public void execute(int word, Processor p) {
 			super.execute(word, p);
-			System.out.println("STA");
+			int address = word & 0x00000FFF; // extract address
+			int value = p.AC;
+
+			p.writeMemory(address, value);
+			String formatted = String.format("STA %h: mem[%h]<- AC (%h)", address, address, value);
+			System.out.println(formatted);
 		}
 	},
 	BAN() {
