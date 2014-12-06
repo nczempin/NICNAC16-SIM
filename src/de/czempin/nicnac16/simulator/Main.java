@@ -15,7 +15,7 @@ public class Main {
 		p.writeMemory(0, 0b0110 * 4096 + 0xF00); // add-instruction
 		p.writeMemory(0xf, 0x7fff);
 		p.writeMemory(0xf00, 0xdead);
-		
+		p.printState();
 		while (!done) {
 			// fetch instruction
 			word = p.readMemory(p.PC);
@@ -29,6 +29,7 @@ public class Main {
 				instruction = Decoder.decode(opcode);
 				// execute instruction
 				instruction.execute(word, p);
+				p.printState();
 			}
 		}
 
