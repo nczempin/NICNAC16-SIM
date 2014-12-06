@@ -19,7 +19,43 @@ public enum Instruction {
 			super.execute(word, p);
 			System.out.println("NOP");
 		}
-	}, JMP, BL, RET, LDA, STA, BAN;
+	},
+	JMP() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("JMP");
+		}
+	},
+	BL() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("BL");
+		}
+	},
+	RET() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("RET");
+		}
+	},
+	LDA() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("LDA");
+		}
+	},
+	STA() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("STA");
+		}
+	},
+	BAN() {
+		public void execute(int word, Processor p) {
+			super.execute(word, p);
+			System.out.println("BAN");
+		}
+	};
 
 	public void execute(int instruction, Processor p) {
 		p.PC++;
