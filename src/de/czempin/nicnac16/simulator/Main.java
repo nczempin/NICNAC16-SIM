@@ -19,7 +19,9 @@ public class Main {
 		while (!done) {
 			// fetch instruction
 			word = p.readMemory(p.PC);
+			
 			if (word == 0b0111111111111111) {
+				System.out.println("===== END OF LINE =====");
 				done = true; // TODO: More elegant with a break? perhaps a processor state?
 			} else {
 				// decode instruction
