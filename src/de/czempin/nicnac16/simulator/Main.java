@@ -18,7 +18,7 @@ public class Main {
 		p.writeMemory(0xf03, 0b0001 * 4096 + next); // jmp-instruction
 		p.writeMemory(next++, 0b0110 * 4096 + 0xF00); // add-instruction
 		p.writeMemory(next++, 0b0101 * 4096 + 0xF02); // sta-instruction
-		p.writeMemory(0xf, 0x7fff); // Halt and catch fire
+		p.writeMemory(next++, 0x7fff); // Halt and catch fire
 		p.writeMemory(0xf00, 0xdead);
 		p.writeMemory(0xf01, 0xbeef);
 		p.printState();
@@ -26,7 +26,7 @@ public class Main {
 			// fetch instruction
 			word = p.readMemory(p.PC);
 			
-			if (word == 0b0111111111111111) {
+			if (word == 0b0111111111111111) { // magic number
 				System.out.println("===== END OF LINE =====");
 				done = true; // TODO: More elegant with a break? perhaps a processor state?
 			} else {
