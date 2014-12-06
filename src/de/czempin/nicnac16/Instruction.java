@@ -48,7 +48,6 @@ public enum Instruction {
 			int newAC = p.AC;
 			String formatted = String.format("LDA %h: AC (%h)<- mem[%h] (%h)", address, newAC, address, value);
 			System.out.println(formatted);
-			System.out.println("LDA");
 		}
 	},
 	STA() {
