@@ -33,7 +33,7 @@ public class Processor {
 
 	public void printState() {
 		// registers
-		final String formatted = String.format("PC: %h, AC: %h", PC, AC);
+		final String formatted = String.format("\nPC: %h, AC: %h\n", PC, AC);
 		System.out.println(formatted);
 	}
 
