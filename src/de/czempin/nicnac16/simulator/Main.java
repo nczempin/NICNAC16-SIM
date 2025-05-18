@@ -31,7 +31,7 @@ public class Main {
 				done = true; // TODO: More elegant with a break? perhaps a processor state?
 			} else {
 				// decode instruction
-				opcode = word / 4096; // shift right by 12 (4096 = 2´12).
+				opcode = word / 4096; // shift right by 12 (4096 = 2^12).
 				instruction = Decoder.decode(opcode);
 				// execute instruction
 				instruction.execute(word, p);
