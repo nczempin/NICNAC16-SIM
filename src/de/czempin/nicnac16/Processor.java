@@ -1,7 +1,7 @@
 package de.czempin.nicnac16;
 
 public class Processor {
-	int mem[] = new int[65636];
+        int mem[] = new int[65536];
 	public int PC;
 	public int AC;
 
