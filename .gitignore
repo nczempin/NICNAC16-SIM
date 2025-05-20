@@ -11,3 +11,6 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /bin/
+/sources.txt
+/src/de/czempin/nicnac16/Instruction.java
+/src/de/czempin/nicnac16/simulator/Decoder.java

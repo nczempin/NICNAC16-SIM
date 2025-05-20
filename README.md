@@ -19,3 +19,16 @@ java -cp bin:/opt/gradle/lib/junit-4.13.2.jar:/opt/gradle/lib/hamcrest-core-1.3.
 ```
 
 Any IDE with JUnit support can run the tests as well.
+
+Shared ISA Specification
+-----------------------
+
+The opcodes and fields are described in the `NICNAC16-ISA` directory.  During
+`run.sh` the `scripts/generate_from_spec.py` script reads `isa.json` and
+creates `Instruction.java` and `Decoder.java` automatically.  Other tools such
+as the assembler or compiler should include the same specification (ideally via
+a git submodule) so they stay in sync with the hardware description.
+
+When the Verilog repository changes the instruction encoding, update the
+specification and commit it to `NICNAC16-ISA`.  All projects consuming the spec
+should update their submodules and regenerate sources.

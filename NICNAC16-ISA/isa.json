@@ -1,0 +1,17 @@
+{
+  "word_bits": 16,
+  "fields": {
+    "opcode": {"hi": 15, "lo": 12},
+    "address": {"hi": 11, "lo": 0}
+  },
+  "instructions": [
+    {"name": "NOP", "opcode": 0},
+    {"name": "JMP", "opcode": 1, "fields": ["address"]},
+    {"name": "BL", "opcode": 2, "fields": ["address"]},
+    {"name": "RET", "opcode": 3},
+    {"name": "LDA", "opcode": 4, "fields": ["address"]},
+    {"name": "STA", "opcode": 5, "fields": ["address"]},
+    {"name": "ADD", "opcode": 6, "fields": ["address"]},
+    {"name": "BAN", "opcode": 8, "fields": ["address"]}
+  ]
+}
