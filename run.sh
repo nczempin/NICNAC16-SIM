@@ -1,35 +1,24 @@
 #!/bin/sh
 set -e
 
-# Directory for compiled classes
-BIN_DIR="bin"
-SRC_DIR="src"
-LIB_DIR="lib"
+echo "Generating C++ sources from ISA specification..."
+python3 scripts/generate_from_spec.py # Assuming python3 is the invoker
 
-# Ensure bin directory exists
-mkdir -p "$BIN_DIR"
+echo "Configuring and building C++ project with CMake..."
+# Create build directory if it doesn't exist
+mkdir -p build
+cd build
 
-# Generate sources from the shared ISA specification
-scripts/generate_from_spec.py
+# Configure CMake and build
+# Assuming CMakeLists.txt is in the parent directory ("..")
+cmake ..
+cmake --build .
 
-# Build classpath from jars in lib directory and JUnit
-CP="/opt/gradle/lib/junit-4.13.2.jar:/opt/gradle/lib/hamcrest-core-1.3.jar"
-if ls "$LIB_DIR"/*.jar >/dev/null 2>&1; then
-    EXTRA=$(echo "$LIB_DIR"/*.jar | tr ' ' ':')
-    CP="$CP:$EXTRA"
-fi
+echo "Build complete. Executable nicnac16_sim should be in the build directory."
 
-# Collect all Java source files
-find "$SRC_DIR" -name '*.java' > sources.txt
+# Example of how to run the simulator (currently commented out)
+# echo "Running NICNAC16 Simulator..."
+# ./nicnac16_sim
 
-# Compile
-javac -d "$BIN_DIR" -cp "$CP" @sources.txt
-
-# Determine test classes (all *Test.java under src/test/java)
-TESTS=$(find "$SRC_DIR/test/java" -name '*Test.java' \
-    | sed "s#^$SRC_DIR/test/java/##" \
-    | sed 's#\.java$##' \
-    | tr '/' '.')
-
-# Run tests
-java -cp "$BIN_DIR:$CP" org.junit.runner.JUnitCore $TESTS
+cd .. # Return to project root
+echo "run.sh completed."

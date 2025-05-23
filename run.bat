@@ -1,30 +1,48 @@
 @echo off
-setlocal enabledelayedexpansion
-set BIN_DIR=bin
-set SRC_DIR=src
-set LIB_DIR=lib
+setlocal
 
-if not exist %BIN_DIR% mkdir %BIN_DIR%
-
-rem Build classpath from all jars in lib
-set CP=%LIB_DIR%\*
-
-rem Collect all java files
-(for /r %SRC_DIR% %%f in (*.java) do @echo %%f) > sources.txt
-
-rem Compile
-javac -d %BIN_DIR% -cp %CP% @sources.txt
-if errorlevel 1 exit /b 1
-
-rem Determine test classes
-set TESTS=
-for /f %%f in ('dir /b /s %SRC_DIR%\test\java\*Test.java') do (
-  set file=%%f
-  set class=!file:%SRC_DIR%\test\java\=!
-  set class=!class:.java=!
-  set class=!class:\=.!
-  set TESTS=!TESTS! !class!
+echo Generating C++ sources from ISA specification...
+python scripts/generate_from_spec.py
+REM Assuming python is in PATH. Use python3 if that's the standard invoker.
+if errorlevel 1 (
+    echo Failed to generate C++ sources. Exiting.
+    exit /b 1
 )
 
-java -cp "%BIN_DIR%;%CP%" org.junit.runner.JUnitCore %TESTS%
-if errorlevel 1 exit /b 1
+echo Configuring and building C++ project with CMake...
+
+REM Create build directory if it doesn't exist
+if not exist build mkdir build
+if errorlevel 1 (
+    echo Failed to create build directory. Exiting.
+    exit /b 1
+)
+
+cd build
+
+REM Configure CMake
+REM Assuming CMakeLists.txt is in the parent directory ("..")
+cmake ..
+if errorlevel 1 (
+    echo CMake configuration failed. Exiting.
+    cd ..
+    exit /b 1
+)
+
+REM Build the project
+cmake --build .
+if errorlevel 1 (
+    echo CMake build failed. Exiting.
+    cd ..
+    exit /b 1
+)
+
+echo Build complete. Executable nicnac16_sim.exe should be in the build directory.
+
+REM Example of how to run the simulator (currently commented out)
+REM echo "Running NICNAC16 Simulator..."
+REM nicnac16_sim.exe
+
+cd ..
+echo run.bat completed.
+endlocal
