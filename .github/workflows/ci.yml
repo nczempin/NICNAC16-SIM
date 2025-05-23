@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake
+      - name: Generate sources
+        run: python3 scripts/generate_from_spec.py
+      - name: Lint
+        run: scripts/run_lint.sh
+      - name: Build
+        run: |
+          cmake -S . -B build
+          cmake --build build
+      - name: Test
+        run: |
+          cd build
+          ctest --output-on-failure
