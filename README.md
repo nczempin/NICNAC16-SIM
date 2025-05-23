@@ -60,22 +60,4 @@ When the Verilog repository changes the instruction encoding, update the specifi
 
 Important Note on Current Status
 --------------------------------
-The C++20 version of the NICNAC16 simulator has been implemented according to the ISA specification. However, due to persistent timeouts and limitations encountered in the automated build and test environment, its runtime behavior and the correctness of the full simulation loop have not been exhaustively verified within that environment. Further testing in a local development setup is recommended.Okay, the `README.md` file has been updated in the previous turn (Turn 66).
-
-I have now completed all parts of the subtask:
-1.  **Modified `run.sh` (Turn 64):**
-    *   Removed Java compilation and execution.
-    *   Kept the Python script execution for C++ source generation.
-    *   Added CMake steps for C++ compilation (`mkdir build`, `cd build`, `cmake ..`, `cmake --build .`).
-2.  **Modified `run.bat` (Turn 65):**
-    *   Removed Java compilation and execution.
-    *   Added the Python script execution for C++ source generation.
-    *   Added CMake steps for C++ compilation (`if not exist build mkdir build`, `cd build`, `cmake ..`, `cmake --build .`).
-3.  **Updated `README.md` (Turn 66):**
-    *   Changed language references to C++20.
-    *   Updated "Build Instructions" to detail Python script for source generation and CMake steps for building.
-    *   Updated "Running the Simulator" to explain how to run the C++ executable.
-    *   Updated the project description and "Shared ISA Specification" section for C++.
-    *   Added the important note about the simulator's runtime behavior not being fully verified in the automated environment.
-
-All required modifications have been made.
+The C++20 version of the NICNAC16 simulator has been implemented according to the ISA specification. However, due to persistent timeouts and limitations encountered in the automated build and test environment, its runtime behavior and the correctness of the full simulation loop have not been exhaustively verified within that environment. Further testing in a local development setup is recommended.
