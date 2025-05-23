@@ -9,6 +9,14 @@ Prerequisites
 *   CMake (version 3.16 or higher recommended).
 *   Python (version 3.x recommended) to run the source generation script.
 
+Setup
+-----
+Run the setup script to install required packages (`g++`, `cmake`, and `python3`) on Debian-based systems:
+
+```bash
+./setup.sh
+```
+
 Build Instructions
 ------------------
 
