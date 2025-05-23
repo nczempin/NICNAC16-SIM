@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
             std::cerr << "Error: Program Counter out of bounds!" << std::endl;
             break;
         }
-        
+
         word = p.readMemory(p.PC_);
 
         if (word == 0x7FFF) { // Special HALT value
@@ -54,14 +54,14 @@ int main(int argc, char* argv[]) {
         // The Decoder::decode function expects the full word, and it extracts the opcode.
         // So, we pass the full 'word'.
         try {
-            instruction_ptr = Decoder::decode(word); 
+            instruction_ptr = Decoder::decode(word);
         } catch (const std::runtime_error& e) {
             std::cerr << "Runtime Error during decode: " << e.what() << std::endl;
             std::cerr << "At PC: 0x" << std::hex << p.PC_ << ", word: 0x" << word << std::dec << std::endl;
             done = true; // Halt on unknown instruction
             continue;
         }
-        
+
 
         // Execute
         if (instruction_ptr) {
@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
             // The base `Instruction::execute` is pure virtual.
             // Let's ensure the NOP instruction in generated code gets `p.incrementPC()`.
             // For this main loop, we call execute, and trust it does the right thing.
-            
+
             instruction_ptr->execute(word, p);
         } else {
             // This case should ideally not be reached if Decoder::decode throws on unknown opcodes.

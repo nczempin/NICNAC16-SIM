@@ -25,5 +25,5 @@ private:
 
     // Helper method to print memory around a specific address
     // Made private as it's primarily a helper for readMemory and writeMemory logging
-    void printMemory(uint16_t address) const; 
+    void printMemory(uint16_t address) const;
 };

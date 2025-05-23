@@ -10,7 +10,13 @@ include_directories(
     generated_cpp 
 )
 
-file(GLOB SOURCES "cpp_src/*.cpp")
+file(GLOB SIM_SOURCES "cpp_src/processor.cpp")
 file(GLOB GENERATED_SOURCES "generated_cpp/*.cpp")
 
-add_executable(nicnac16_sim ${SOURCES} ${GENERATED_SOURCES})
+add_library(nicnac_lib ${SIM_SOURCES} ${GENERATED_SOURCES})
+
+add_executable(nicnac16_sim cpp_src/main.cpp)
+target_link_libraries(nicnac16_sim PRIVATE nicnac_lib)
+
+enable_testing()
+add_subdirectory(tests)
