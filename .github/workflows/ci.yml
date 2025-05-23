@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Detect code changes
+        id: changes
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch origin ${{ github.event.pull_request.base.ref }}
+            CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD | grep -vE '\\.md$' || true)
+            if [ -n "$CHANGED" ]; then
+              echo "code_changed=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "code_changed=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "code_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup environment
+        if: steps.changes.outputs.code_changed == 'true'
+        run: ./setup.sh
+
+      - name: Build project
+        if: steps.changes.outputs.code_changed == 'true'
+        run: ./run.sh
+
+      - name: Run tests
+        if: steps.changes.outputs.code_changed == 'true'
+        run: |
+          if [ -d build ]; then
+            cd build
+          fi
+          ctest --output-on-failure
+
+      - name: Run linters
+        if: steps.changes.outputs.code_changed == 'true'
+        run: echo "Linting step would run here"
