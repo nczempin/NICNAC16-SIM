@@ -18,3 +18,5 @@ build/
 *.dylib
 *.gch
 *.pch
+
+__pycache__/
