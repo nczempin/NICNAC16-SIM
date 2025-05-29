@@ -1,13 +1,22 @@
-*.class
+# CMake build output
+build/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Compiled object files
+*.o
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Executables
+*.exe
+*.dll
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-/bin/
+# Other common C++ artifacts
+*.out
+*.slo
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.gch
+*.pch
+
+__pycache__/
