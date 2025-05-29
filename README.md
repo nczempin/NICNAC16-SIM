@@ -1,71 +1,111 @@
-NICNAC16-SIM (C++ Version)
-==========================
+# NICNAC16-SIM (C++ Version)
 
-A software simulator implementing the evolving Instruction Set Architecture (ISA) of the NICNAC16 design, written in C++20.
+## What Problem Does This Solve?
+NICNAC16-SIM is a software simulator for the NICNAC16 CPU architecture, allowing developers to test and execute NICNAC16 programs without requiring physical hardware. It provides a controlled environment for debugging, testing, and developing software for the NICNAC16 platform, enabling faster iteration cycles in the development process.
 
-Prerequisites
--------------
-*   A C++20 compatible compiler (e.g., GCC, Clang, MSVC).
-*   CMake (version 3.16 or higher recommended).
-*   Python (version 3.x recommended) to run the source generation script.
+## Who Is This For?
+- **NICNAC16 Ecosystem Developers**: Contributors working on the NICNAC16 CPU, assembler, or compiler
+- **Assembly Language Programmers**: Developers writing and testing NICNAC16 assembly code
+- **Computer Architecture Students**: Those learning about CPU design and instruction set architectures
+- **Hobbyists**: Enthusiasts interested in exploring custom CPU architectures
 
-Setup
------
-Run the setup script to install required packages (`g++`, `cmake`, and `python3`) on Debian-based systems:
+## Current Implementation Status
+- ✅ C++20 implementation of the NICNAC16 ISA specification
+- ✅ Instruction decoding and execution framework
+- ✅ Memory model implementation
+- ✅ Basic CPU cycle simulation
+- 🚧 Full simulation loop verification
+- 🚧 Comprehensive test suite
+- 🚧 Interactive debugging features
+- 📋 Performance optimizations
+- 📋 Integration with assembler and compiler tools
+
+## Setup Instructions
+
+### Prerequisites
+- A C++20 compatible compiler (e.g., GCC, Clang, MSVC)
+- CMake (version 3.16 or higher recommended)
+- Python (version 3.x recommended) for source generation
+- Git for version control and submodule management
+
+### Installation
+Run the setup script to install required packages on Debian-based systems:
 
 ```bash
 ./setup.sh
 ```
 
-Build Instructions
-------------------
+### Build Process
+1. **Generate C++ Sources from ISA Specification:**
+   ```bash
+   python scripts/generate_from_spec.py
+   ```
+   (Use `python3` if `python` does not point to Python 3.x)
 
-1.  **Generate C++ Sources:**
-    The opcodes, instruction details, and decoder logic are generated from the ISA specification located in the `NICNAC16-ISA` directory. Run the Python script to generate these C++ source files:
-    ```bash
-    python scripts/generate_from_spec.py
-    ```
-    (Use `python3` if `python` does not point to a Python 3.x interpreter).
-    This will create/update files in the `generated_cpp/` directory.
+2. **Configure and Build with CMake:**
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   cmake --build .
+   ```
 
-2.  **Configure and Build with CMake:**
-    The project uses CMake to manage the build process.
-    ```bash
-    # Create a build directory (if it doesn't exist)
-    mkdir build
+### Running the Simulator
+After building, run the simulator from the project root:
 
-    # Navigate into the build directory
-    cd build
+- **Linux/macOS:**
+  ```bash
+  ./build/nicnac16_sim
+  ```
+- **Windows:**
+  ```bash
+  .\build\nicnac16_sim.exe
+  ```
 
-    # Configure the project (point CMake to the root directory where CMakeLists.txt is)
-    cmake ..
+## Expected Output and Behavior
+When running the simulator, you should see:
+1. Initialization messages as the simulator loads
+2. Memory state information
+3. Register contents as instructions execute
+4. Execution trace of instructions
 
-    # Build the project (compile and link)
-    cmake --build .
-    ```
-    This will produce the `nicnac16_sim` executable (or `nicnac16_sim.exe` on Windows) in the `build` directory.
+Note: The current version has limited interactive features. Program input is primarily through pre-loaded memory images rather than an interactive console.
 
-Running the Simulator
----------------------
+## Project Scope
 
-After a successful build, the simulator can be run from the project root directory:
+### What This IS
+- A software simulator for the NICNAC16 CPU architecture
+- A development and testing tool for NICNAC16 software
+- A reference implementation of the NICNAC16 ISA
+- An educational resource for understanding the NICNAC16 architecture
 
-*   On Linux/macOS:
-    ```bash
-    ./build/nicnac16_sim
-    ```
-*   On Windows:
-    ```bash
-    .\build\nicnac16_sim.exe
-    ```
+### What This IS NOT
+- Not a hardware implementation or FPGA design
+- Not a production-ready emulator for high-performance applications
+- Not a complete development environment (IDE, debugger, etc.)
+- Not intended for simulating other CPU architectures
 
-Shared ISA Specification
-------------------------
+## Repository Structure
+- `src/` - Core simulator source code
+- `include/` - Header files
+- `generated_cpp/` - Files generated from the ISA specification
+- `NICNAC16-ISA/` - ISA specification (shared with other NICNAC16 tools)
+- `scripts/` - Python scripts for source generation
+- `tests/` - Test cases for the simulator
+- `examples/` - Example NICNAC16 programs
 
-The opcodes and fields are described in the `NICNAC16-ISA` directory (specifically `isa.json`). During the first step of the build process, the `scripts/generate_from_spec.py` script reads `isa.json` and creates C++ source files (`instruction.hpp`, `instruction.cpp`, `decoder.hpp`, `decoder.cpp`) in the `generated_cpp/` directory automatically. Other tools such as an assembler or compiler should include the same specification (ideally via a git submodule) so they stay in sync with the hardware description.
+## Shared ISA Specification
+The simulator uses a shared ISA specification located in the `NICNAC16-ISA` directory. This ensures consistency across all NICNAC16 tools:
 
-When the Verilog repository changes the instruction encoding, update the specification and commit it to `NICNAC16-ISA`. All projects consuming the spec should update their submodules and regenerate sources.
+- The `isa.json` file defines opcodes and instruction formats
+- `scripts/generate_from_spec.py` generates C++ implementation files
+- When the ISA changes, all tools using this specification should be updated
 
-Important Note on Current Status
---------------------------------
-The C++20 version of the NICNAC16 simulator has been implemented according to the ISA specification. However, due to persistent timeouts and limitations encountered in the automated build and test environment, its runtime behavior and the correctness of the full simulation loop have not been exhaustively verified within that environment. Further testing in a local development setup is recommended.
+## Development Status
+This is an active development project. The core simulation functionality is implemented, but comprehensive verification is still in progress. Due to limitations in the automated build environment, some aspects of the runtime behavior have not been exhaustively verified. Local testing is recommended for critical applications.
+
+## Related Projects
+- [NICNAC16](https://github.com/nczempin/NICNAC16) - Main CPU architecture
+- [NICNAC16-ASS](https://github.com/nczempin/NICNAC16-ASS) - Assembler
+- [NICNAC16-CC](https://github.com/nczempin/NICNAC16-CC) - C compiler
+- [NICNAC16-FPGA](https://github.com/nczempin/NICNAC16-FPGA) - FPGA implementation
