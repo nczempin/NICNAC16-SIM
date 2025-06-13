@@ -49,6 +49,12 @@ Run the setup script to install required packages on Debian-based systems:
    cmake ..
    cmake --build .
    ```
+### Running Tests
+After building, run tests from the `build` directory:
+```bash
+ctest
+```
+
 
 ### Running the Simulator
 After building, run the simulator from the project root:
@@ -86,12 +92,13 @@ Note: The current version has limited interactive features. Program input is pri
 - Not intended for simulating other CPU architectures
 
 ## Repository Structure
-- `src/` - Core simulator source code
-- `include/` - Header files
+- `cpp_src/` - Core C++ simulator source code
+- `cpp_include/` - Header files
 - `generated_cpp/` - Files generated from the ISA specification
 - `NICNAC16-ISA/` - ISA specification (shared with other NICNAC16 tools)
 - `scripts/` - Python scripts for source generation
 - `tests/` - Test cases for the simulator
+- `legacy_java/` - Java simulator sources (for reference)
 - `examples/` - Example NICNAC16 programs
 
 ## Shared ISA Specification
